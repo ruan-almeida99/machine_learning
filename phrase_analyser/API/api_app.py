@@ -35,6 +35,14 @@ def predict():
     # Result
     result_proba = pipeline.resultPrediction(predictProba)
 
+    # Save phrase and prediction
+    saveData = pd.DataFrame()
+    saveData['phrase'].append(x_json)
+    saveData['predict'].append(predictVector)
+    saveData['probability_negative'] = predictProba[0][0]
+    saveData['probability_positive'] = predictProba[0][1]
+    saveData.to_csv('/home/recruta/Documentos/GitHub/phrase_analyser/app/inventory/newData.csv')
+
     # Return json
     data_json = pd.DataFrame()
     data_json['predict'] = predictVector
@@ -47,6 +55,3 @@ def predict():
 if __name__ == '__main__':
     # Start Flask
     app.run(host='0.0.0.0' , port=5000)
-
-
-
